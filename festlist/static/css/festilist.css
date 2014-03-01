@@ -1,9 +1,10 @@
 body
 {
     color: #000000;
+    margin: 0;
 }
 
-#topbanner
+.topbanner
 {
     font-family: 'Helvetica Neue', Helvetica, Arial, Geneva, sans-serif;
     font-size: 14px;
@@ -16,28 +17,30 @@ body
     width: 100%;
 }
 
-#topbannercontent
+.topbannercontent
+{
+}
+
+.container
 {
     width: 80%;
     margin: auto;
 }
 
-#sidebar
+.menu
 {
     background-color: #22ee66;
     width: 20%;
 }
 
-#mainpagebackground
+.mainpagebackground
 {
-    background-color: #d1d2d4;
+    background-color: #7D7E80;
     width: 100%;
     text-align: center;
 }
 
-#mainwrapper
+.mainwrapper
 {
     background-color: #FFFFFF;
-    width: 80%;
-    margin: auto;
 }

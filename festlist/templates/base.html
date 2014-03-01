@@ -7,30 +7,26 @@
 </head>
 
 <body>
-    <div id="topbanner">
-        <div id="topbannercontent">
+    <div class="topbanner">
+        <div class="topbannercontent container">
             {% block topbanner %}
             FestList
             {% endblock %}
         </div>
     </div>
 
-    <div id="mainpagebackground">
-
-
-        <div id="sidebar">
-            {% block sidebar %}
+    <div class="mainpagebackground">
+        <div class="menu">
+            {% block menu %}
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/blog/">Blog</a></li>
             </ul>
             {% endblock %}
         </div>
-
-        <div id="mainwrapper">
+        <div class="mainwrapper container">
             {% block content %}The main content{% endblock %}
         </div>
-
     </div>
 </body>
 </html>
