@@ -1,0 +1,24 @@
+#sidebar
+{
+    background-color: ##22ee66;
+    width: 20%;
+}
+
+#topbanner
+{
+    background-color: #343434;
+    width: 100%;
+}
+
+#mainpagebackground
+{
+    background-color: #ebebeb;
+    width: 100%;
+}
+
+#mainwrapper
+{
+    background-color: #FFFFFF;
+    width: 80%;
+    text-align: auto;
+}
