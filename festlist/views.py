@@ -5,4 +5,4 @@ from django.shortcuts import get_object_or_404, render
 
 
 def home(request):
-    return render(request, 'festlist/index.html')
+    return render(request, 'index.html')
