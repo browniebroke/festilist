@@ -2,31 +2,40 @@
 <html lang="en">
 {% load staticfiles %}
 <head>
-    <link rel="stylesheet" href="{% static "css/festilist.css" %}"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="{% static "css/festilist.css" %}"/>-->
+    <!-- Latest compiled and minified bootstrap CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <title>{% block title %}My amazing site{% endblock %}</title>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 
 <body>
-    <div class="topbanner">
-        <div class="topbannercontent container">
-            {% block topbanner %}
-            FestList
-            {% endblock %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">FestList</div>
+            {% block navbarextension %}{% endblock %}
         </div>
     </div>
 
-    <div class="mainpagebackground">
-        <div class="menu">
-            {% block menu %}
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/blog/">Blog</a></li>
-            </ul>
-            {% endblock %}
+    <div class="container theme-showcase" role="main">
+        ::before
+        <div class="jumbotron">
+            {% block content %}<p>The main content</p>{% endblock %}
         </div>
-        <div class="mainwrapper container">
-            {% block content %}The main content{% endblock %}
-        </div>
+        ::after
     </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
 </html>
