@@ -91,9 +91,3 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates')
 )
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.load_template_source',
-    'django.template.loaders.app_directories.load_template_source',
-#     'django.template.loaders.eggs.load_template_source',
-)
