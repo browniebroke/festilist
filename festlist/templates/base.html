@@ -8,10 +8,12 @@
 
 <body>
     <div id="topbanner">
-        {% block topbanner %}
-        The top banner
-        {% endblock %}
-    <div>
+        <div id="topbannercontent">
+            {% block topbanner %}
+            FestList
+            {% endblock %}
+        </div>
+    </div>
 
     <div id="mainpagebackground">
 
@@ -26,9 +28,9 @@
         </div>
 
         <div id="mainwrapper">
-            {% block content %}{% endblock %}
+            {% block content %}The main content{% endblock %}
         </div>
-        
+
     </div>
 </body>
 </html>

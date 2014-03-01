@@ -5,10 +5,21 @@ body
 
 #topbanner
 {
+    font-family: 'Helvetica Neue', Helvetica, Arial, Geneva, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    padding: .4em 10px .2em 10px;
+    border-bottom: 2px solid #3497e5;
+    color: #3497e5;
+    text-align: center;
     background-color: #343434;
     width: 100%;
-    color: #FFFFFF;
+}
 
+#topbannercontent
+{
+    width: 80%;
+    margin: auto;
 }
 
 #sidebar
