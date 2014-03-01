@@ -1,24 +1,32 @@
-#sidebar
+body
 {
-    background-color: ##22ee66;
-    width: 20%;
+    color: #000000;
 }
 
 #topbanner
 {
     background-color: #343434;
     width: 100%;
+    color: #FFFFFF;
+
+}
+
+#sidebar
+{
+    background-color: #22ee66;
+    width: 20%;
 }
 
 #mainpagebackground
 {
-    background-color: #ebebeb;
+    background-color: #d1d2d4;
     width: 100%;
+    text-align: center;
 }
 
 #mainwrapper
 {
     background-color: #FFFFFF;
     width: 80%;
-    text-align: auto;
+    margin: auto;
 }
