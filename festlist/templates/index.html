@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}Festlist - Home{% endblock %}
 
 {% block content %}
-        <h1>Home</h1>
         <p>
             Ever had this feeling that you know 10% of the line ups of the festivals you're going to? Once there,
             either you discover great bands, or spend some time switching between stages.
@@ -15,6 +16,43 @@
         </p>
         <h2>How does it work?</h2>
         <p>
-            {explain here}
+            <div class="row mycover">
+                <div class="col-md-4">
+                    <!--<img class="img-circle" alt="140x140" src="{% static "img/soundcloud_circle.jpeg" %}" style="width: 140px; height: 140px;">-->
+                    <div>
+                        <span class="fa-stack fa-lg fa-5x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa fa-cloud fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </div>
+                    <p>Connect with Soundcloud</p>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <span class="fa-stack fa-lg fa-5x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa fa-list-ul fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </div>
+                    <p>Give list of artists</p>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        <span class="fa-stack fa-lg fa-5x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa fa-music fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </div>
+                    <p>Enjoy & Discover!</p></div>
+            </div>
         </p>
+        <div class="mycover">
+            <h2>Start here</h2>
+            <!-- <p><i class="fa fa-arrow-down fa-2x"></i></p> -->
+            <p class="lead">
+                <a href="{% url 'authorise' %}">
+                    <button class="btn btn-primary">Connect with Soundcloud</button>
+                </a>
+            </p>
+        </div>
 {% endblock %}

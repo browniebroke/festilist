@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Festlist - Create your playlist{% endblock %}
+
+{% block content %}
+        <form id="input_form" role="form" action="generate" method="post">{% csrf_token %}
+          <div class="form-group">
+            <label for="playlistTitle">Playlist title:</label>
+            <input type="text" name="title" class="form-control" id="playlistTitle" placeholder="Title"/>
+          </div>
+          <div class="form-group">
+            <label for="artistsList">Artists list:</label>
+            <textarea rows="20" name="artists" class="form-control" id="artistsList" placeholder="Please enter one artist per line"></textarea>
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="randomize" id="randomize"/>Randomize
+            </label>
+          </div>
+          <button id="generate_link" type="submit" class="btn btn-primary">Playlist!</button>
+        </form>
+        <div id="generate_processing" class="mycover">
+            <p><i class="fa fa-cog fa-spin fa-2x"></i></p>
+            <p id="status">Processing...</p>
+        </div>
+        <div id="generate_plst_result" class="mycover">
+            <p>OK</p>
+        </div>
+        <script type="text/javascript">
+        $(document).ready( function () {
+            $('#generate_processing').hide();
+            $('#generate_plst_result').hide();
+            $('#generate_link').click( function () {
+                $('#input_form').slideUp('slow');
+                $('#generate_processing').slideDown('slow');
+                console.log( $('#input_form').serialize() );
+                $.ajax( {
+                    type: 'POST',
+                    url: '/generate',
+                    data: $('#input_form').serialize(),
+                    dataType: 'json',
+                    success: function( json ) {
+                        $('#generate_processing').fadeOut('fast');
+                        $('#generate_plst_result').fadeIn('fast');
+                        $('#generate_plst_result').html(
+                            "<p><a href=\"" + json["link"] + "\">Click here to check"
+                            + " out your playlist " + json["title"] + "!</a></p>"
+                        );
+                        console.log('ran the success function');
+                    },
+                    error: function() {
+                        console.log('running the fail function');
+                        $('#generate_processing').fadeOut('fast');
+                        $('#generate_result').fadeIn('fast');
+                        $('#generate_result').html('<p>Failed...</p>');
+                    }
+                } );
+                return false;
+
+            } );
+            $('#generate_link').onclick = function() { return false; }
+        } );
+        </script>
+{% endblock %}

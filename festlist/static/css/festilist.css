@@ -1,11 +1,26 @@
-body
+/*body
 {
     background-color: #7D7E80;    
     font-family: 'Helvetica Neue', Helvetica, Arial, Geneva, sans-serif;
     color: #000000;
     margin: 0;
+}*/
+
+.mycover
+{
+    text-align: center;
 }
 
+.secondhalf
+{
+    color: #62a2d9;
+}
+
+.sc-attributions
+{
+    text-align: right;
+}
+/*
 .topbanner
 {
     font-size: 20px;
@@ -44,4 +59,4 @@ body
 .mainwrapper
 {
     background-color: #FFFFFF;
-}
+}*/

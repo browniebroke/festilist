@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import sys
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -26,7 +27,17 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
+    }
+}
 # Application definition
 
 INSTALLED_APPS = (
@@ -69,7 +80,7 @@ USE_TZ = True
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config(default='postgres://django:password@localhost/django')
 }
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
@@ -79,7 +90,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 # Static asset configuration
-import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
