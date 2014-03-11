@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Festlist - Page not found{% endblock %}
+
+{% block content %}
+        <p>
+            <div class="row mycover">
+                <img class="img-circle" alt="140x140" src="{% static 'img/404.jpg' %}" style="width: 140px; height: 140px;"/>
+                <p>Oops, something went wrong :(</p>
+                <p><a href="{% url 'home' %}">Back to home page</a></p>
+            </div>
+        </p>
+{% endblock %}
