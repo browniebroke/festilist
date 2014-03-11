@@ -1,8 +1,8 @@
 """
 The application views defined here
 """
-from django.shortcuts import get_object_or_404, render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseServerError
 import soundcloud
 import random
 from django.core.context_processors import csrf
@@ -83,5 +83,5 @@ def generate_playlist(request):
         return HttpResponse(simplejson.dumps({"link": ret.permalink_url, "title": ret.title}), content_type="application/json")
     else:
         print("no artists found!")
-        return HttpResponse()
+        return HttpResponseServerError()
 
