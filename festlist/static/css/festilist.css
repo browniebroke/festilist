@@ -1,11 +1,3 @@
-/*body
-{
-    background-color: #7D7E80;    
-    font-family: 'Helvetica Neue', Helvetica, Arial, Geneva, sans-serif;
-    color: #000000;
-    margin: 0;
-}*/
-
 .mycover
 {
     text-align: center;
@@ -20,43 +12,9 @@
 {
     text-align: right;
 }
-/*
-.topbanner
+
+.mypadding
 {
-    font-size: 20px;
-    -webkit-font-smoothing: antialiased;
-    padding: .4em 10px .2em 10px;
-    border-bottom: 2px solid #3497e5;
-    color: #3497e5;
-    text-align: center;
-    background-color: #343434;
-    width: 100%;
+    padding: 10px 20px 10px 20px;
 }
 
-.topbannercontent
-{
-    text-align: left;
-}
-
-.container
-{
-    width: 80%;
-    margin: auto;
-}
-
-.menu
-{
-    background-color: #22ee66;
-    width: 20%;
-}
-
-.mainpagebackground
-{
-    width: 100%;
-    text-align: center;
-}
-
-.mainwrapper
-{
-    background-color: #FFFFFF;
-}*/

@@ -3,23 +3,27 @@ The application views defined here
 """
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseServerError
+from models import SoundcloudAppli
 import soundcloud
 import random
 from django.core.context_processors import csrf
 import simplejson
 
-YOUR_CLIENT_ID = '2ae265cd2702984b68b72f786c2cf1e5'
-YOUR_CLIENT_SECRET = '6ff01cbec17b9dd3887ff7d17fce9a58'
 
 def home(request):
-    return render(request, 'index.html')
+    apps = SoundcloudAppli.objects.all()
+    print "running home view '%s'" % apps
+    return render(request, 'index.html', {'setup_ok': (len(apps) > 0), 'setup_warn': (len(apps) > 1)})
 
 
 def authorise(request):
+    app = SoundcloudAppli.objects.all()[0]
+    print app
+    print app.client_id
     create_uri = request.build_absolute_uri('/create')
     client = soundcloud.Client(
-        client_id=YOUR_CLIENT_ID,
-        client_secret=YOUR_CLIENT_SECRET,
+        client_id=app.client_id,
+        client_secret=app.client_secret,
         redirect_uri=create_uri,
         display='popup'
     )
@@ -27,12 +31,13 @@ def authorise(request):
 
 
 def create(request):
+    app = SoundcloudAppli.objects.all()[0]
     code = request.GET.get('code', '')
     if code:
         create_uri = request.build_absolute_uri('/create')
         client = soundcloud.Client(
-            client_id=YOUR_CLIENT_ID,
-            client_secret=YOUR_CLIENT_SECRET,
+            client_id=app.client_id,
+            client_secret=app.client_secret,
             redirect_uri=create_uri
         )
         access_token = client.exchange_token(code)

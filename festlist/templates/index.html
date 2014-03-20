@@ -46,13 +46,27 @@
                     <p>Enjoy & Discover!</p></div>
             </div>
         </p>
-        <div class="mycover">
-            <h2>Start here</h2>
-            <!-- <p><i class="fa fa-arrow-down fa-2x"></i></p> -->
-            <p class="lead">
-                <a href="{% url 'authorise' %}">
-                    <button class="btn btn-primary">Connect with Soundcloud</button>
-                </a>
+        {% if setup_ok %}
+            {% if setup_warn %}
+            <p class="mypadding text-warning bg-warning">
+                It looks like more than one application is setup with Soundcloud, this site will use one or the other,
+                and may or may not work. Please go to the <a href="{% url 'admin:index' %}">admin panel</a> to have
+                one and only one registered your settings.
             </p>
-        </div>
+            {% endif %}
+            <div class="mycover">
+                <h2>Start here</h2>
+                <!-- <p><i class="fa fa-arrow-down fa-2x"></i></p> -->
+                <p class="lead">
+                    <a href="{% url 'authorise' %}">
+                        <button class="btn btn-primary">Connect with Soundcloud</button>
+                    </a>
+                </p>
+            </div>
+        {% else %}
+            <p class="mypadding text-danger bg-danger">
+                It looks like no application is setup with Soundcloud yet, this site won't be usable until this is done,
+                please go to the <a href="{% url 'admin:index' %}">admin panel</a> to add your settings.
+            </p>
+        {% endif %}
 {% endblock %}

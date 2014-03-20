@@ -51,8 +51,7 @@
                     error: function() {
                         console.log('running the fail function');
                         $('#generate_processing').fadeOut('fast');
-                        $('#generate_result').fadeIn('fast');
-                        $('#generate_result').html('<p>Failed...</p>');
+                        window.location.replace("/500");
                     }
                 } );
                 return false;
