@@ -5,7 +5,7 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="{% static "css/festilist.css" %}"/>
+    <link rel="stylesheet" href="{% static 'css/festilist.css' %}"/>
     <!-- Latest compiled and minified bootstrap CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
     <!-- Font awesome http://fortawesome.github.io/Font-Awesome -->
@@ -28,8 +28,14 @@
             <h1>Festi<span class="secondhalf">List</span></h1>
 
             {% block content %}<p>The main content</p>{% endblock %}
-            <div class="sc-attributions">
-                <img alt="Soundcloud Attribution" class="classattribution" src="{% static "img/powered_by_large_black.png" %}">
+            <div class="footer">
+                <div class="pull-right">
+                    <p>
+                        <a href="https://soundcloud.com" target="_newtab">
+                            <img alt="Soundcloud Attribution" class="classattribution" src="{% static "img/powered_by_large_black.png" %}">
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

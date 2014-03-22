@@ -33,6 +33,7 @@ def authorise(request):
 def create(request):
     app = SoundcloudAppli.objects.all()[0]
     code = request.GET.get('code', '')
+    c = {}
     if code:
         create_uri = request.build_absolute_uri('/create')
         client = soundcloud.Client(
@@ -43,9 +44,8 @@ def create(request):
         access_token = client.exchange_token(code)
         request.session['access_token'] = access_token.access_token
         #client.get('/me').username
-        c = {}
         c.update(csrf(request))
-        return render(request, 'create.html', c)
+    return render(request, 'create.html', c)
 
 
 def generate_playlist(request):

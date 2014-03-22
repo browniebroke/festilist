@@ -8,9 +8,13 @@
     color: #62a2d9;
 }
 
-.sc-attributions
+.no-color-link  a, .no-color-link a:visited {
+    color: inherit;
+}
+
+.footer
 {
-    text-align: right;
+    margin-top: 20px;
 }
 
 .mypadding
