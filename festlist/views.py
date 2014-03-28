@@ -6,17 +6,26 @@ from django.http import HttpResponse, HttpResponseServerError
 from models import SoundcloudAppli
 import soundcloud
 import random
-from django.core.context_processors import csrf
 import simplejson
+
+
+def set_cookie(response, key, value, days_expire=1):
+    max_age = days_expire * 24 * 60 * 60
+    response.set_cookie(key, value, max_age=max_age)
 
 
 def home(request):
     apps = SoundcloudAppli.objects.all()
     print "running home view '%s'" % apps
-    return render(request, 'index.html', {'setup_ok': (len(apps) > 0), 'setup_warn': (len(apps) > 1)})
+    return render(request, 'index.html', {'setup_ok': (len(apps) > 0),
+                                          'setup_warn': (len(apps) > 1),
+                                          'authorised': ('access_token' in request.COOKIES)})
 
 
 def authorise(request):
+    if 'access_token' in request.COOKIES:
+        #App has already been authorised: skip this
+        return redirect('create')
     app = SoundcloudAppli.objects.all()[0]
     print app
     print app.client_id
@@ -33,8 +42,8 @@ def authorise(request):
 def create(request):
     app = SoundcloudAppli.objects.all()[0]
     code = request.GET.get('code', '')
-    c = {}
-    if code:
+    response = render(request, 'create.html')
+    if code and 'access_token' not in request.COOKIES:
         create_uri = request.build_absolute_uri('/create')
         client = soundcloud.Client(
             client_id=app.client_id,
@@ -42,29 +51,31 @@ def create(request):
             redirect_uri=create_uri
         )
         access_token = client.exchange_token(code)
-        request.session['access_token'] = access_token.access_token
-        #client.get('/me').username
-        c.update(csrf(request))
-    return render(request, 'create.html', c)
+        print("about to set the cookie")
+        set_cookie(response, 'access_token', access_token.access_token)
+    return response
 
 
 def generate_playlist(request):
     print(request.POST.keys())
-    artists = request.POST.get("artists").split('\n')
+    artists = request.POST.get("artists").replace('/', '\n').split('\n')
     if artists:
-        client = soundcloud.Client(access_token=request.session['access_token'])
+        client = soundcloud.Client(access_token=request.COOKIES['access_token'])
         print(artists)
         all_tracks = []
         for artist in artists:
+            artist = artist.strip()
             print artist
             tracks = client.get('/tracks', q=artist, limit=20)
             short_tracks = []
             count = 0
             for track in tracks:
-                if count > 5:
+                max_tracks = int(request.POST.get("max_tracks"))
+                if count > max_tracks:
                     break
-                if track.duration < (10 * 60 * 1000):
-                    #Skip ones longer than 10 mins
+                max_length = int(request.POST.get("max_length"))
+                if max_length == 0 or track.duration < (max_length * 60 * 1000):
+                    #Skip ones longer than max_length mins
                     count += 1
                     short_tracks.append(track)
             all_tracks.extend(track.id for track in short_tracks)
@@ -78,10 +89,11 @@ def generate_playlist(request):
         all_tracks_ids = map(lambda id: dict(id=id), all_tracks)
 
         # create the playlist
+        # FIXME: timeout more than ~400 sounds in total
         print("Creating Playlist...")
         ret = client.post('/playlists', playlist={
             'title': request.POST.get("title"),
-            'sharing': "public",
+            'sharing': "public", #TODO: cutomize this viw a tickbox
             'tracks': all_tracks_ids
         })
         print("Created %s available at: %s!" % (ret.title, ret.permalink_url))

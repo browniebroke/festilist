@@ -1,20 +1,44 @@
 {% extends "base.html" %}
 
-{% block title %}Festlist - Create your playlist{% endblock %}
+{% block title %}Festilist - Create your playlist{% endblock %}
 
 {% block content %}
-        <form id="input_form" role="form" action="generate" method="post">{% csrf_token %}
+        <form class="form-horizontal" id="input_form" role="form" action="generate" method="post">{% csrf_token %}
           <div class="form-group">
-            <label for="playlistTitle">Playlist title:</label>
-            <input type="text" name="title" class="form-control" id="playlistTitle" placeholder="Title"/>
+            <label for="title">Playlist title:</label>
+            <input type="text" name="title" class="form-control" id="title" placeholder="Title"/>
           </div>
           <div class="form-group">
-            <label for="artistsList">Artists list:</label>
-            <textarea rows="10" name="artists" class="form-control" id="artistsList" placeholder="Please enter one artist per line"></textarea>
+            <label for="artists">Artists list:</label>
+            <textarea rows="10" name="artists" class="form-control" id="artists" placeholder="Please enter one artist per line"></textarea>
           </div>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" name="randomize" id="randomize"/>Randomize
+          <div class="row">
+          <div class="col-md-5 form-group">
+            <label for="nb_tracks" class="col-md-7 control-label">Number of tracks per artist</label>
+                <div class="col-md-3">
+                <select class="form-control" name="max_tracks" id="nb_tracks">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option selected="selected">5</option></option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </select></div>
+          </div>
+          <div class="col-md-6 form-group">
+            <label for="max_length" class="col-md-10 control-label">Track length limit in minutes. Set it to 0 for no limit</label>
+            <div class="col-md-2">
+                <input type="text" name="max_length" class="form-control" id="max_length" value="10"/>
+            </div>
+          </div>
+          </div>
+          <div class="form-group">
+            <label for="randomize">
+              <input type="checkbox" name="randomize" id="randomize"/> Shuffle
             </label>
           </div>
           <button id="generate_link" type="submit" class="btn btn-primary">Playlist it!</button>
@@ -30,6 +54,31 @@
         $(document).ready( function () {
             $('#generate_processing').hide();
             $('#generate_plst_result').hide();
+
+            $('#input_form').validate(
+             {
+              rules: {
+                title: {
+                  minlength: 2,
+                  required: true
+                },
+                artists: {
+                  minlength: 1,
+                  required: true
+                },
+                max_length: {
+                  required: true,
+                  number: true
+                },
+              },
+              highlight: function(element) {
+                $(element).parents('.form-group').removeClass('has-success').addClass('has-error');
+              },
+              success: function(element) {
+                $(element).parents('.form-group').removeClass('has-error').addClass('has-success');
+              }
+             });
+
             $('#generate_link').click( function () {
                 $('#input_form').slideUp('slow');
                 $('#generate_processing').slideDown('slow');
