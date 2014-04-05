@@ -3,7 +3,7 @@ The application views defined here
 """
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseServerError
-from models import SoundcloudAppli
+from models import SoundcloudAppli, Playlist
 import soundcloud
 import random
 import simplejson
@@ -96,6 +96,12 @@ def generate_playlist(request):
             'sharing': "public", #TODO: cutomize this viw a tickbox
             'tracks': all_tracks_ids
         })
+        try:
+            user = client.get('/me')
+            plst = Playlist(name=ret.title, author=user.username, author_id=user.uri, url=ret.permalink_url)
+            plst.save()
+        except Exception as exc:
+            print("++ ERROR while trying to save the playlist: %s" % exc)
         print("Created %s available at: %s!" % (ret.title, ret.permalink_url))
         return HttpResponse(simplejson.dumps({"link": ret.permalink_url, "title": ret.title}), content_type="application/json")
     else:

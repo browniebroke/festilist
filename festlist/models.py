@@ -14,5 +14,19 @@ class SoundcloudAppli(models.Model):
 class SoundcloudAppliAdmin(admin.ModelAdmin):
     list_display = ('name', 'client_id', 'client_secret')
 
-
 admin.site.register(SoundcloudAppli, SoundcloudAppliAdmin)
+
+
+class Playlist(models.Model):
+    name = models.CharField(max_length=100)
+    author = models.CharField(max_length=100)
+    author_id = models.CharField(max_length=100)
+    url = models.CharField(max_length=1024)
+
+    def __str__(self):
+        return self.name
+
+class PlaylistAdmin(admin.ModelAdmin):
+    list_display = ('name', 'author')
+
+admin.site.register(Playlist, PlaylistAdmin)
